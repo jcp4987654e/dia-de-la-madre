@@ -16,113 +16,205 @@
         .font-pacifico {
             font-family: 'Pacifico', cursive;
         }
-        /* Animación de entrada */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        /* Contenedor de la presentación, oculto por defecto */
+        #presentation-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FFFBFB;
+            z-index: 50;
         }
-        .fade-in-section {
-            animation: fadeIn 1s ease-out forwards;
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.5s ease-in-out;
+            box-sizing: border-box;
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .slide.active .animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animated {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide-up { transform: translateY(40px); }
+        .slide-up.delay-1 { transition-delay: 0.3s; }
+        .slide-up.delay-2 { transition-delay: 0.6s; }
+        .slide-up.delay-3 { transition-delay: 0.9s; }
+        .slide-up.delay-4 { transition-delay: 1.2s; }
+        .zoom-in { transform: scale(0.8); }
+        .zoom-in.delay-1 { transition-delay: 0.3s; }
+        .zoom-in.delay-2 { transition-delay: 0.5s; }
+        .zoom-in.delay-3 { transition-delay: 0.7s; }
+        .text-shadow {
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body class="text-slate-700">
 
-    <!-- Contenedor principal -->
-    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+    <!-- Vista Normal de la Página -->
+    <div id="page-view">
+        <div class="container mx-auto p-4 md:p-8 max-w-5xl">
 
-        <!-- Encabezado -->
-        <header class="text-center my-12 fade-in-section">
-            <h1 class="font-pacifico text-5xl md:text-7xl text-pink-600">¡Feliz Día, Mamá!</h1>
-            <p class="text-xl md:text-2xl mt-4 text-slate-500">Un pequeño regalo para la mujer más increíble del mundo: nuestra Maia.</p>
-        </header>
-
-        <!-- Foto Familiar Principal -->
-        <section class="my-16 fade-in-section" style="animation-delay: 0.2s;">
-            <div class="bg-white p-4 rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500">
-                <img src="https://placehold.co/1200x800/fecdd3/44403c?text=Foto+familiar+de+los+cuatro+juntos" 
-                     alt="Foto de la familia: Maia, Sergio, Ámbar y Jesús" 
-                     class="rounded-xl w-full h-auto object-cover">
-                <p class="text-center mt-4 text-slate-500 italic">Nuestra familia, nuestro mayor tesoro.</p>
+            <!-- Controles -->
+            <div class="fixed top-4 right-4 z-40 flex gap-2">
+                <button id="start-presentation-btn" class="bg-pink-600 text-white font-bold py-2 px-4 rounded-full shadow-lg hover:bg-pink-700 transition-colors">
+                    Ver Presentación
+                </button>
             </div>
-        </section>
 
-        <!-- Mensaje de Jesús -->
-        <section class="my-20 bg-rose-50 p-8 rounded-2xl shadow-lg fade-in-section" style="animation-delay: 0.4s;">
-            <h2 class="font-pacifico text-4xl text-pink-700 mb-6 text-center">Unas palabras para ti, mamá...</h2>
-            <div class="text-lg space-y-4 text-justify leading-relaxed">
-                <p>Querida mamá,</p>
-                <p>
-                    Hoy, en tu día, las palabras se sienten pequeñas para expresar todo lo que siento. A mis 18 años, a punto de empezar esta nueva etapa en la facultad y con la idea de quizás mudarme pronto, miro hacia atrás y solo veo tu amor incondicional como el pilar de mi vida.
-                </p>
-                <p>
-                    Me enseñaste a ser fuerte, a soñar en grande y a nunca rendirme. Cada paso que doy hacia mi futuro fue posible gracias a los cimientos que tú construiste para mí. Gracias por tu paciencia infinita (¡sé que la necesitaste!), por tus comidas que curan el alma y por ser siempre mi lugar seguro.
-                </p>
-                <p>
-                    Aunque crezca y empiece mi propio camino, quiero que sepas que siempre serás mi guía y mi mayor inspiración. Eres mucho más que mi mamá, eres mi heroína.
-                </p>
-                <p class="font-bold text-right">Te amo más de lo que las palabras pueden decir. Con todo mi amor, Jesús.</p>
-            </div>
-        </section>
-
-        <!-- Galería de Recuerdos -->
-        <section class="my-20 fade-in-section" style="animation-delay: 0.6s;">
-            <h2 class="font-pacifico text-5xl text-pink-600 mb-12 text-center">Galería de Nuestros Recuerdos</h2>
-
-            <!-- Sección: Nosotros de pequeños -->
-            <div class="mb-16">
-                <h3 class="text-3xl font-bold text-slate-600 mb-6">Nosotros de Pequeños</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    <img src="https://placehold.co/600x600/fecdd3/44403c?text=Jesús+y+Ámbar+de+chicos" alt="Jesús y Ámbar de chicos" class="rounded-xl shadow-lg transform hover:rotate-2 transition-transform">
-                    <img src="https://placehold.co/600x600/e9d5ff/44403c?text=Foto+divertida+de+niños" alt="Otra foto de niños" class="rounded-xl shadow-lg transform hover:-rotate-2 transition-transform mt-0 md:mt-8">
-                    <img src="https://placehold.co/600x600/c7d2fe/44403c?text=Recuerdo+especial" alt="Recuerdo de la infancia" class="rounded-xl shadow-lg transform hover:rotate-1 transition-transform sm:col-span-2 md:col-span-1">
+            <!-- Contenido de la página original -->
+            <header class="text-center my-12">
+                <h1 class="font-pacifico text-5xl md:text-7xl text-pink-600">¡Feliz Día, Mamá!</h1>
+                <p class="text-xl md:text-2xl mt-4 text-slate-500">Un pequeño regalo para la mujer más increíble del mundo: nuestra Maia.</p>
+            </header>
+            <section class="my-16">
+                <div class="bg-white p-4 rounded-2xl shadow-2xl">
+                    <img src="https://placehold.co/1200x800/fecdd3/44403c?text=Foto+familiar+de+los+cuatro+juntos" alt="Foto de la familia" class="rounded-xl w-full h-auto object-cover">
+                    <p class="text-center mt-4 text-slate-500 italic">Nuestra familia, nuestro mayor tesoro.</p>
                 </div>
-            </div>
-
-            <!-- Sección: Papá y Mamá Jóvenes -->
-            <div class="mb-16">
-                <h3 class="text-3xl font-bold text-slate-600 mb-6">Papá y Mamá Jóvenes</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <img src="https://placehold.co/800x600/fecdd3/44403c?text=Sergio+y+Maia+de+jóvenes" alt="Sergio y Maia de jóvenes" class="rounded-xl shadow-lg transform hover:scale-105 transition-transform">
-                    <img src="https://placehold.co/800x600/e9d5ff/44403c?text=Otro+recuerdo+de+ellos" alt="Otro recuerdo de los padres jóvenes" class="rounded-xl shadow-lg transform hover:scale-105 transition-transform">
+            </section>
+            <section class="my-20 bg-rose-50 p-8 rounded-2xl shadow-lg">
+                <h2 class="font-pacifico text-4xl text-pink-700 mb-6 text-center">Unas palabras para ti, mamá...</h2>
+                <div class="text-lg space-y-4 text-justify leading-relaxed">
+                    <p>Querida mamá,</p>
+                    <p>
+                        Hoy, en tu día, las palabras se sienten pequeñas para expresar todo lo que siento. A mis 18 años, a punto de empezar esta nueva etapa en la facultad y con la idea de quizás mudarme pronto, miro hacia atrás y solo veo tu amor incondicional como el pilar de mi vida.
+                    </p>
+                    <p>
+                        Me enseñaste a ser fuerte, a soñar en grande y a nunca rendirme. Cada paso que doy hacia mi futuro fue posible gracias a los cimientos que tú construiste para mí. Gracias por tu paciencia infinita (¡sé que la necesitaste!), por tus comidas que curan el alma y por ser siempre mi lugar seguro.
+                    </p>
+                    <p>
+                        Aunque crezca y empiece mi propio camino, quiero que sepas que siempre serás mi guía y mi mayor inspiración. Eres mucho más que mi mamá, eres mi heroína.
+                    </p>
+                    <p class="font-bold text-right">Te amo más de lo que las palabras pueden decir. Con todo mi amor, Jesús.</p>
                 </div>
-            </div>
-
-            <!-- Sección: La Reina de la Casa -->
-            <div>
-                <h3 class="text-3xl font-bold text-slate-600 mb-6">La Reina de la Casa</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    <img src="https://placehold.co/600x800/fecdd3/44403c?text=Foto+de+Maia+sola" alt="Foto de Maia" class="rounded-xl shadow-lg transform hover:-rotate-2 transition-transform">
-                    <img src="https://placehold.co/600x800/e9d5ff/44403c?text=Maia+sonriendo" alt="Maia sonriendo" class="rounded-xl shadow-lg transform hover:rotate-2 transition-transform">
-                    <img src="https://placehold.co/600x800/c7d2fe/44403c?text=La+mejor+mamá" alt="Foto especial de Maia" class="rounded-xl shadow-lg transform hover:rotate-1 transition-transform sm:col-span-2 md:col-span-1">
+            </section>
+            <section class="my-20">
+                <h2 class="font-pacifico text-5xl text-pink-600 mb-12 text-center">Galería de Recuerdos</h2>
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold text-slate-600 mb-6">Nosotros de Pequeños</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"><img src="https://placehold.co/400x400/fecdd3/44403c?text=Jesús+y+Ámbar" class="rounded-xl shadow-lg"><img src="https://placehold.co/400x400/e9d5ff/44403c?text=Recuerdo" class="rounded-xl shadow-lg"><img src="https://placehold.co/400x400/c7d2fe/44403c?text=Travesuras" class="rounded-xl shadow-lg"></div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Mensaje de Ámbar -->
-        <section class="my-20 fade-in-section" style="animation-delay: 0.8s;">
-             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl relative">
-                <div class="absolute top-0 left-0 -mt-6 -ml-4 w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center text-white text-4xl font-pacifico">
-                    A
+                <div class="mb-16">
+                    <h3 class="text-3xl font-bold text-slate-600 mb-6">Papá y Mamá Jóvenes</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6"><img src="https://placehold.co/800x600/fecdd3/44403c?text=Sergio+y+Maia" class="rounded-xl shadow-lg"><img src="https://placehold.co/800x600/e9d5ff/44403c?text=Comienzos" class="rounded-xl shadow-lg"></div>
                 </div>
-                <h2 class="font-pacifico text-4xl text-pink-700 mb-6 text-center">Un mensaje de Ámbar</h2>
-                <div class="text-lg text-slate-600 space-y-4 italic leading-relaxed text-center max-w-2xl mx-auto">
-                    <p>Mamá, hoy es tu día, aunque debería ser todos los días, ya que vos hacés una magia desde cuando te levantás hasta cuando dormís. Sos la que encuentra todo, la que hace comidas ricas (para mí y Jesús sos la mejor chef). Sos la que aguanta mis berrinches y siempre estás, aunque me quieras dejar en adopción.</p>
-                    <p>No sabés cuántas palabras habría para describir cómo sos la mejor mamá. Más o menos sería como el símbolo π, que tiene muchos números pero no alcanza. Y si sería en libros, habría 100 libros de colección. Y si sería serie, tendría 10 temporadas con 100 caps cada una que duraría 20 horas cada una.</p>
-                    <p class="font-bold not-italic text-pink-600">"Eres la voz que me guía, el abrazo que me calma y el corazón que late por mí siempre."</p>
-                    <p>Y también eres toda mi vida. Amor por ti serían los múltiplos porque son infinitos.</p>
+                <div>
+                    <h3 class="text-3xl font-bold text-slate-600 mb-6">La Reina de la Casa</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"><img src="https://placehold.co/600x800/fecdd3/44403c?text=Foto+de+Maia+sola" class="rounded-xl shadow-lg"><img src="https://placehold.co/600x800/e9d5ff/44403c?text=Maia+sonriendo" class="rounded-xl shadow-lg"><img src="https://placehold.co/600x800/c7d2fe/44403c?text=La+mejor+mamá" class="rounded-xl shadow-lg"></div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Cierre -->
-        <footer class="text-center my-16 fade-in-section" style="animation-delay: 1s;">
-            <p class="text-2xl font-pacifico text-pink-600">De Ámbar y Jesús</p>
-            <p class="text-xl mt-2 text-slate-500">Para la hermosa mamá del mundo, nuestra Maia 💖</p>
-            <p class="text-lg mt-4 text-slate-400">(Y con un saludo especial de Papá)</p>
-        </footer>
-
+            </section>
+            <section class="my-20">
+                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl">
+                    <h2 class="font-pacifico text-4xl text-pink-700 mb-6 text-center">Un mensaje de Ámbar</h2>
+                    <div class="text-lg text-slate-600 space-y-4 italic leading-relaxed text-center max-w-2xl mx-auto">
+                        <p>Mamá, hoy es tu día, aunque debería ser todos los días, ya que vos hacés una magia desde cuando te levantás hasta cuando dormís. Sos la que encuentra todo, la que hace comidas ricas (para mí y Jesús sos la mejor chef). Sos la que aguanta mis berrinches y siempre, aunque me queres dejarme en adopcion.</p>
+                        <p>No sabés cuántas palabras habría para describir cómo la mejor mamá. Más o menos sería como el símbolo π, que tiene muchos números pero no alcanza. Y si sería en libros, habría 100 libros de colección. Y si sería serie, tendría 10 temporadas con 100 caps cada una que duraría 20 horas cada una.</p>
+                        <p>Capaz lo que escribí no sea mucho, pero una frase que siempre me marca por ti es:</p>
+                        <p class="font-bold not-italic text-pink-600">"Eres la voz que me guía, el abrazo que me calma y el corazón que late por mí siempre."</p>
+                        <p>Y también eres toda mi vida. Amor por ti serían los multiplos porque son infinitos.</p>
+                    </div>
+                </div>
+            </section>
+            <footer class="text-center my-16"><p class="text-2xl font-pacifico text-pink-600">De Ámbar y Jesús</p><p class="text-xl mt-2 text-slate-500">Para la hermosa mamá del mundo, nuestra Maia 💖</p><p class="text-lg mt-4 text-slate-400">(Y con un saludo especial de Papá)</p></footer>
+        </div>
     </div>
 
+    <!-- Vista de Presentación (Video) -->
+    <div id="presentation-container">
+        <!-- Controles de la presentación -->
+        <button id="exit-presentation-btn" class="fixed top-4 right-4 z-50 bg-white/80 text-pink-600 font-bold py-2 px-4 rounded-full shadow-lg hover:bg-white transition-colors">
+            Salir
+        </button>
+
+        <!-- Slides -->
+        <div class="slide"><div class="text-center"><h1 class="font-pacifico text-6xl md:text-8xl text-pink-600 text-shadow animated slide-up">¡Feliz Día, Mamá!</h1><p class="text-2xl md:text-3xl mt-6 text-slate-500 animated slide-up delay-1">Un pequeño regalo para la mujer más increíble del mundo: nuestra Maia.</p></div></div>
+        <div class="slide"><div class="text-center w-full max-w-4xl"><div class="bg-white p-4 rounded-2xl shadow-2xl animated zoom-in"><img src="https://placehold.co/1200x800/fecdd3/44403c?text=Foto+familiar+de+los+cuatro+juntos" class="rounded-xl w-full h-auto object-cover"></div><p class="text-center mt-6 text-xl text-slate-500 italic animated slide-up delay-1">Nuestra familia, nuestro mayor tesoro.</p></div></div>
+        <div class="slide bg-rose-50"><div class="max-w-3xl text-center"><h2 class="font-pacifico text-5xl text-pink-700 mb-8 text-shadow animated slide-up">Unas palabras para ti, mamá...</h2><div class="text-xl md:text-2xl space-y-5 leading-relaxed text-justify"><p class="animated slide-up delay-1">A mis 18 años, a punto de empezar esta nueva etapa, miro hacia atrás y solo veo tu amor incondicional como el pilar de mi vida.</p><p class="animated slide-up delay-2">Gracias por enseñarme a ser fuerte, por tu paciencia infinita, por tus comidas que curan el alma y por ser siempre mi lugar seguro.</p><p class="animated slide-up delay-3">Aunque crezca y empiece mi propio camino, siempre serás mi guía y mi mayor inspiración. Eres mi heroína.</p><p class="font-bold text-right mt-6 animated slide-up delay-4">Con todo mi amor, Jesús.</p></div></div></div>
+        <div class="slide"><div class="text-center w-full"><h2 class="font-pacifico text-6xl text-pink-600 mb-12 text-shadow animated slide-up">Nosotros de Pequeños</h2><div class="flex justify-center items-center gap-6 md:gap-10 flex-wrap"><img src="https://placehold.co/400x400/fecdd3/44403c?text=Jesús+y+Ámbar" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-xl shadow-lg transform -rotate-6 animated zoom-in delay-1"><img src="https://placehold.co/400x400/e9d5ff/44403c?text=Recuerdo" class="w-52 h-52 md:w-72 md:h-72 object-cover rounded-xl shadow-lg transform animated zoom-in delay-2"><img src="https://placehold.co/400x400/c7d2fe/44403c?text=Travesuras" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-xl shadow-lg transform rotate-6 animated zoom-in delay-3"></div></div></div>
+        <div class="slide"><div class="text-center w-full"><h2 class="font-pacifico text-6xl text-pink-600 mb-12 text-shadow animated slide-up">Papá y Mamá Jóvenes</h2><div class="flex justify-center items-center gap-6 md:gap-10 flex-wrap"><img src="https://placehold.co/800x600/fecdd3/44403c?text=Sergio+y+Maia" class="h-64 md:h-80 object-cover rounded-xl shadow-lg transform -rotate-3 animated zoom-in delay-1"><img src="https://placehold.co/800x600/e9d5ff/44403c?text=Comienzos" class="h-64 md:h-80 object-cover rounded-xl shadow-lg transform rotate-3 animated zoom-in delay-2"></div></div></div>
+        <div class="slide"><div class="text-center w-full"><h2 class="font-pacifico text-6xl text-pink-600 mb-12 text-shadow animated slide-up">La Reina de la Casa</h2><div class="flex justify-center items-center gap-6 md:gap-10 flex-wrap"><img src="https://placehold.co/600x800/fecdd3/44403c?text=Foto+de+Maia+sola" class="h-64 md:h-80 object-cover rounded-xl shadow-lg transform -rotate-6 animated zoom-in delay-1"><img src="https://placehold.co/600x800/e9d5ff/44403c?text=Maia+sonriendo" class="h-72 md:h-96 object-cover rounded-xl shadow-lg z-10 animated zoom-in delay-2"><img src="https://placehold.co/600x800/c7d2fe/44403c?text=La+mejor+mamá" class="h-64 md:h-80 object-cover rounded-xl shadow-lg transform rotate-6 animated zoom-in delay-3"></div></div></div>
+        <div class="slide bg-rose-50"><div class="max-w-3xl text-center"><h2 class="font-pacifico text-5xl text-pink-700 mb-8 text-shadow animated slide-up">Un mensaje de Ámbar</h2><div class="text-xl md:text-2xl space-y-4 italic leading-relaxed"><p class="animated slide-up delay-1">"Mamá, hoy es tu día, aunque debería ser todos los días. Sos la que encuentra todo, la que hace comidas ricas y la que aguanta mis berrinches."</p><p class="animated slide-up delay-2">"Amor por ti sería como el símbolo π, que tiene muchos números pero no alcanza... o como los múltiplos, porque son infinitos."</p><p class="font-bold not-italic text-pink-600 mt-6 animated slide-up delay-3">"Eres la voz que me guía, el abrazo que me calma y el corazón que late por mí siempre."</p><p class="animated slide-up delay-4">"Y también eres toda mi vida."</p></div></div></div>
+        <div class="slide"><div class="text-center"><p class="text-4xl font-pacifico text-pink-600 animated slide-up">De Ámbar y Jesús</p><p class="text-3xl mt-4 text-slate-500 animated slide-up delay-1">Para la hermosa mamá del mundo, nuestra Maia 💖</p><p class="text-xl mt-6 text-slate-400 animated slide-up delay-2">(Y con un saludo especial de Papá)</p></div></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Contenedores y botones
+            const pageView = document.getElementById('page-view');
+            const presentationContainer = document.getElementById('presentation-container');
+            const startBtn = document.getElementById('start-presentation-btn');
+            const exitBtn = document.getElementById('exit-presentation-btn');
+
+            // Lógica de la presentación
+            const slides = presentationContainer.querySelectorAll('.slide');
+            let currentSlide = 0;
+            let presentationTimer;
+
+            const slideDurations = [5000, 6000, 15000, 8000, 7000, 8000, 14000, 7000];
+
+            function showNextSlide() {
+                if (currentSlide < slides.length) {
+                    slides[currentSlide].classList.remove('active');
+                }
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+                presentationTimer = setTimeout(showNextSlide, slideDurations[currentSlide]);
+            }
+
+            function startPresentation() {
+                pageView.style.display = 'none';
+                presentationContainer.style.display = 'block';
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error al intentar pantalla completa: ${err.message} (${err.name})`);
+                });
+                
+                // Iniciar desde el primer slide
+                currentSlide = 0;
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[0].classList.add('active');
+                
+                presentationTimer = setTimeout(showNextSlide, slideDurations[0]);
+            }
+
+            function exitPresentation() {
+                clearTimeout(presentationTimer);
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+                presentationContainer.style.display = 'none';
+                pageView.style.display = 'block';
+            }
+
+            // Asignar eventos a los botones
+            startBtn.addEventListener('click', startPresentation);
+            exitBtn.addEventListener('click', exitPresentation);
+        });
+    </script>
 </body>
 </html>
+
