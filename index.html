@@ -71,15 +71,8 @@
 </head>
 <body class="text-slate-700">
     
-    <!-- 
-      INSTRUCCIONES PARA LA MÚSICA CON GITHUB:
-      1. Sube tu archivo MP3 a un repositorio PÚBLICO en GitHub.
-      2. Abre el archivo MP3 dentro de GitHub.
-      3. Busca y haz clic en el botón que dice "Raw" o "Ver en crudo".
-      4. Se abrirá una nueva pestaña con solo el reproductor de audio. Copia la URL de esa pestaña.
-      5. Pega esa URL completa entre las comillas de src="" en la línea de abajo.
-    -->
-    <audio id="background-music" src="URL_DE_TU_ARCHIVO_MP3_EN_RAW_DE_GITHUB" loop></audio>
+    <!-- URL corregida usando jsDelivr para que la música se reproduzca en lugar de descargarse -->
+    <audio id="background-music" src="https://cdn.jsdelivr.net/gh/jcp4987654e/dia-de-la-madre@main/Tu%20Amor%20-%20Pedro%20Aznar%20-%20Concierto%20Online%2029_5%20%5BPKCD5b8xESE%5D.mp3" loop></audio>
 
     <!-- Vista Normal de la Página -->
     <div id="page-view">
@@ -270,10 +263,10 @@
                 pageView.style.display = 'none';
                 presentationContainer.style.display = 'block';
                 
-                music.currentTime = 0;
+                music.currentTime = 22; // Inicia la canción desde el segundo 22
                 music.play().catch(e => {
                     const musicSrc = music.getAttribute('src');
-                    if (!musicSrc || musicSrc === 'URL_DE_TU_ARCHIVO_MP3_EN_RAW_DE_GITHUB') {
+                    if (!musicSrc || musicSrc.includes('URL_DE_TU_ARCHIVO_MP3')) {
                         console.warn("Música no configurada. Reemplaza el placeholder en el HTML.");
                     } else {
                         console.error("Error al reproducir audio:", e);
@@ -327,4 +320,3 @@
     </script>
 </body>
 </html>
-
